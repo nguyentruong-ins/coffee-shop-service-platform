@@ -1,0 +1,278 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model accounts {
+  id                Int                @id(map: "PK__accounts__3213E83F35C5A4FB") @default(autoincrement())
+  username          String             @unique(map: "uq_username") @db.VarChar(255)
+  password          String?            @db.VarChar(255)
+  customer_accounts customer_accounts?
+  employee_numbers  employee_numbers[]
+}
+
+model categories {
+  id            Int     @id(map: "PK__categori__3213E83F33BDAD06") @default(autoincrement())
+  category_name String  @db.VarChar(255)
+  items         items[]
+}
+
+model customer_accounts {
+  id                Int             @id(map: "PK__customer__3213E83FD7605B5C") @default(autoincrement())
+  username          String          @unique(map: "uq_username_customer") @db.VarChar(255)
+  total_points      Int             @default(0, map: "DF__customer___total__7CD98669")
+  account_status    String          @default("active", map: "DF__customer___accou__7DCDAAA2") @db.VarChar(10)
+  latest_ordered_at DateTime?
+  customer_id       Int?
+  accounts          accounts        @relation(fields: [username], references: [username], onUpdate: NoAction, map: "fk_customer_base_account")
+  customers         customers?      @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_id")
+  online_orders     online_orders[]
+}
+
+model customer_addresses {
+  id          Int       @default(autoincrement())
+  customer_id Int
+  number      Int
+  street      String    @db.VarChar(255)
+  district    String    @db.VarChar(255)
+  customers   customers @relation(fields: [customer_id], references: [id], onUpdate: NoAction, map: "fk_customer_address")
+
+  @@id([id, customer_id, number, street, district], map: "pk_customer_address")
+}
+
+model customers {
+  id                 Int                  @id(map: "PK__customer__3213E83F29990DE9") @default(autoincrement())
+  sex                String?              @db.VarChar(20)
+  last_name          String?              @db.VarChar(255)
+  first_name         String               @db.VarChar(255)
+  phone_number       String?              @db.VarChar(10)
+  membership_id      Int?
+  customer_accounts  customer_accounts[]
+  customer_addresses customer_addresses[]
+  memberships        memberships?         @relation(fields: [membership_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_membership")
+  directly_orders    directly_orders[]
+}
+
+model directly_orders {
+  id                  Int                @id(map: "PK__directly__3213E83F08803506") @default(autoincrement())
+  order_id            Int?
+  change              Float?             @db.Money
+  customer_payment    Float?             @db.Money
+  customer_id         Int?
+  export_emp_username String?            @db.VarChar(255)
+  employee_accounts   employee_accounts? @relation(fields: [export_emp_username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_directly_oder_export_emp")
+  customers           customers?         @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_directly_order_customer_id")
+  orders              orders?            @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_directly_order_id")
+}
+
+model employee_accounts {
+  id                                                                        Int               @id(map: "PK__employee__3213E83F4BACA16E") @default(autoincrement())
+  username                                                                  String?           @unique(map: "uq_username_employee_account") @db.VarChar(255)
+  salary                                                                    Float?            @db.Money
+  address                                                                   String?           @db.VarChar(255)
+  dob                                                                       DateTime?
+  account_type                                                              String?           @db.VarChar(100)
+  last_name                                                                 String?           @db.VarChar(255)
+  first_name                                                                String?           @db.VarChar(255)
+  sex                                                                       String?           @db.VarChar(20)
+  started_date                                                              DateTime?
+  ssn                                                                       String?           @unique(map: "uq_employee_ssn") @db.VarChar(9)
+  employee_type                                                             String?           @db.VarChar(20)
+  store_id                                                                  Int?
+  status                                                                    Boolean?          @default(true, map: "DF__employee___statu__12C8C788")
+  directly_orders                                                           directly_orders[]
+  stores_employee_accounts_store_idTostores                                 stores?           @relation("employee_accounts_store_idTostores", fields: [store_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_store_id")
+  employee_shifts                                                           employee_shifts[]
+  online_orders_online_orders_export_employee_usernameToemployee_accounts   online_orders[]   @relation("online_orders_export_employee_usernameToemployee_accounts")
+  online_orders_online_orders_shipping_employee_usernameToemployee_accounts online_orders[]   @relation("online_orders_shipping_employee_usernameToemployee_accounts")
+  stores_stores_manager_usernameToemployee_accounts                         stores[]          @relation("stores_manager_usernameToemployee_accounts")
+}
+
+model employee_numbers {
+  id                Int       @id(map: "PK__employee__3213E83F83A8BFB9") @default(autoincrement())
+  employee_username String?   @db.VarChar(255)
+  number            String?   @db.VarChar(10)
+  accounts          accounts? @relation(fields: [employee_username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_emp_nums")
+
+  @@unique([employee_username, number], map: "uq_employee_number")
+}
+
+model employee_shifts {
+  id                Int                @id(map: "PK__employee__3213E83F9CE7D7C7") @default(autoincrement())
+  username          String?            @db.VarChar(255)
+  shift_id          Int?
+  month             Int?               @db.TinyInt
+  year              Int?               @db.SmallInt
+  shifts            shifts?            @relation(fields: [shift_id, month, year], references: [id, month, year], onDelete: NoAction, onUpdate: NoAction, map: "fk_employee_shift")
+  employee_accounts employee_accounts? @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_shift_emp_username")
+
+  @@unique([username, shift_id, month, year], map: "uq_username_shift_month_year")
+}
+
+model ingredients {
+  id                   Int                    @id(map: "PK__ingredie__3213E83F4AECC3B6") @default(autoincrement())
+  ingredient_name      String                 @db.VarChar(255)
+  item_has_ingredients item_has_ingredients[]
+}
+
+model item_has_ingredients {
+  id            Int         @id(map: "PK__item_has__3213E83FFC2211FC") @default(autoincrement())
+  item_id       Int
+  ingredient_id Int
+  quantity      Int?        @db.SmallInt
+  unit          String?     @db.Char(20)
+  items         items       @relation(fields: [item_id], references: [id], onUpdate: NoAction, map: "fk_item_ingredient_1")
+  ingredients   ingredients @relation(fields: [ingredient_id], references: [id], onUpdate: NoAction, map: "fk_item_ingredient_2")
+}
+
+model item_has_toppings {
+  id                                            Int   @id(map: "PK__item_has__3213E83F66AC2BC8") @default(autoincrement())
+  item_id                                       Int
+  topped_item_id                                Int
+  items_item_has_toppings_topped_item_idToitems items @relation("item_has_toppings_topped_item_idToitems", fields: [topped_item_id], references: [id], onUpdate: NoAction, map: "fk_item_topped")
+  items_item_has_toppings_item_idToitems        items @relation("item_has_toppings_item_idToitems", fields: [item_id], references: [id], onUpdate: NoAction, map: "fk_item_topping")
+}
+
+model items {
+  id                                                        Int                    @id(map: "PK__items__3213E83FEBDFDD9E") @default(autoincrement())
+  item_name                                                 String                 @db.VarChar(255)
+  description                                               String?                @db.VarChar(500)
+  instruction                                               String?                @db.VarChar(255)
+  base_price                                                Float                  @db.Money
+  category_id                                               Int?
+  item_has_ingredients                                      item_has_ingredients[]
+  item_has_toppings_item_has_toppings_topped_item_idToitems item_has_toppings[]    @relation("item_has_toppings_topped_item_idToitems")
+  item_has_toppings_item_has_toppings_item_idToitems        item_has_toppings[]    @relation("item_has_toppings_item_idToitems")
+  categories                                                categories?            @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_item_category")
+  menu_items                                                menu_items[]
+  order_items                                               order_items[]
+}
+
+model memberships {
+  id               Int         @id(map: "PK__membersh__3213E83FAEA33FC8") @default(autoincrement())
+  description      String?     @db.VarChar(255)
+  membership_type  String?     @db.VarChar(50)
+  discount_percent Int         @db.TinyInt
+  customers        customers[]
+}
+
+model menu_items {
+  id      Int    @id(map: "PK__menu_ite__3213E83F305DEF33") @default(autoincrement())
+  item_id Int?
+  menu_id Int?
+  price   Int?
+  items   items? @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_menu_item_id")
+  menus   menus? @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_meny_id")
+
+  @@unique([item_id, menu_id], map: "uq_item_menu")
+}
+
+model menus {
+  id         Int          @id(map: "PK__menus__3213E83F9F1CB8D7") @default(autoincrement())
+  menu_name  String       @db.VarChar(255)
+  period     Int?
+  started_at DateTime
+  menu_items menu_items[]
+}
+
+model months {
+  id     Int      @id(map: "PK__months__3213E83F67E9175F") @default(autoincrement())
+  month  Int      @db.TinyInt
+  year   Int      @db.SmallInt
+  shifts shifts[]
+
+  @@unique([month, year], map: "uq_month_year_id")
+}
+
+model online_orders {
+  id                                                                            Int                @id(map: "PK__online_o__3213E83F3C68AB40") @default(autoincrement())
+  order_id                                                                      Int?               @unique(map: "uq_online_order")
+  status                                                                        String?            @db.VarChar(20)
+  shipping_fee                                                                  Float?             @db.Money
+  shipping_address                                                              String?            @db.VarChar(255)
+  predicted_arrived_time                                                        DateTime?
+  customer_account_username                                                     String?            @db.VarChar(255)
+  export_employee_username                                                      String?            @db.VarChar(255)
+  shipping_employee_username                                                    String?            @db.VarChar(255)
+  discount_amount_by_point                                                      Float?             @db.Money
+  customer_accounts                                                             customer_accounts? @relation(fields: [customer_account_username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_online_order_customer")
+  employee_accounts_online_orders_export_employee_usernameToemployee_accounts   employee_accounts? @relation("online_orders_export_employee_usernameToemployee_accounts", fields: [export_employee_username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_online_order_export_emp")
+  orders                                                                        orders?            @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_online_order_id")
+  employee_accounts_online_orders_shipping_employee_usernameToemployee_accounts employee_accounts? @relation("online_orders_shipping_employee_usernameToemployee_accounts", fields: [shipping_employee_username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_online_order_ship_emp")
+}
+
+model order_items {
+  id           Int     @id(map: "PK__order_it__3213E83F6C2268A9") @default(autoincrement())
+  order_id     Int?
+  item_id      Int?
+  actual_price Int?
+  quantity     Int?
+  orders       orders? @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_id")
+  items        items?  @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_item_id")
+
+  @@unique([order_id, item_id], map: "uq_item_order")
+}
+
+model order_vouchers {
+  id         Int       @id(map: "PK__order_vo__3213E83FA0FD59A8") @default(autoincrement())
+  order_id   Int?      @unique(map: "uq_order_voucher")
+  voucher_id Int?
+  vouchers   vouchers? @relation(fields: [voucher_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_voucher_id")
+  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_voucher_order")
+}
+
+model orders {
+  id                            Int               @id(map: "PK__orders__3213E83F907D6849") @default(autoincrement())
+  total_amount                  Float             @db.Money
+  discount_amount_by_voucher    Float?            @db.Money
+  discount_amount_by_membership Float?            @db.Money
+  ordered_at                    DateTime?
+  directly_orders               directly_orders[]
+  online_orders                 online_orders?
+  order_items                   order_items[]
+  order_vouchers                order_vouchers?
+}
+
+model shifts {
+  id              Int               @id(map: "PK__shifts__3213E83FD0FBCD30") @default(autoincrement())
+  month           Int?              @db.TinyInt
+  year            Int?              @db.SmallInt
+  started_at      DateTime?         @db.Time
+  ended_at        DateTime?         @db.Time
+  day             Int?              @db.TinyInt
+  employee_shifts employee_shifts[]
+  months          months?           @relation(fields: [month, year], references: [month, year], onDelete: NoAction, onUpdate: NoAction, map: "fk_shift_month")
+
+  @@unique([id, month, year], map: "uq_shift_month_year")
+}
+
+model stores {
+  id                                                           Int                 @id(map: "PK__stores__3213E83F73EFBD63") @default(autoincrement())
+  manager_username                                             String?             @db.VarChar(255)
+  store_name                                                   String?             @db.VarChar(255)
+  address                                                      String?             @db.VarChar(255)
+  store_number                                                 String?             @db.VarChar(10)
+  opened_time                                                  DateTime?           @db.Time
+  closed_time                                                  DateTime?           @db.Time
+  opened_date                                                  DateTime?           @db.Date
+  month_revenue                                                Float?              @db.Money
+  no_employees                                                 Int?                @db.SmallInt
+  employee_accounts_employee_accounts_store_idTostores         employee_accounts[] @relation("employee_accounts_store_idTostores")
+  employee_accounts_stores_manager_usernameToemployee_accounts employee_accounts?  @relation("stores_manager_usernameToemployee_accounts", fields: [manager_username], references: [username], onDelete: NoAction, onUpdate: NoAction, map: "fk_manager_employee")
+}
+
+model vouchers {
+  id                   Int              @id(map: "PK__vouchers__3213E83F80CEE6EF") @default(autoincrement())
+  description          String?          @db.VarChar(500)
+  voucher_name         String?          @db.VarChar(255)
+  started_at           DateTime?
+  status               Boolean?         @default(false, map: "DF__vouchers__status__65F62111")
+  promotional_amount   Float            @db.Money
+  total_applied_amount Float            @db.Money
+  period               Int?
+  order_vouchers       order_vouchers[]
+}
