@@ -121,7 +121,6 @@ export class AdminService {
     async topProductiveEmployee(request: TopNProductiveEmployeesRequest) {
         try {
             const result = await this.prismaService.$queryRawUnsafe(`EXEC GetTopSellingEmployees '${request.from_date}', '${request.to_date}', ${request.top};`)
-            console.log(result)
             return {
                 statusCode: 200,
                 message: result
@@ -151,7 +150,6 @@ export class AdminService {
 
                 const numbers = []
 
-                console.log(test)
                 for (const numId in test) {
                     const newNum = (test[numId]['number'])
                     numbers.push(newNum)
@@ -182,6 +180,13 @@ export class AdminService {
             else {
                 // const result = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE username='${username}'`)
     
+                const password = await this.prismaService.accounts.findFirst({
+                    select: { password: true},
+                    where: {username: username}
+                })
+
+                result['password'] = password.password
+
                 const employee_numbers = await this.prismaService.employee_numbers.findMany({
                     select: { number: true },
                     where: { employee_username: username }
