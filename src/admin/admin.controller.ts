@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post, Req } from "@nestjs/common";
 import { AdminService } from "./admin.service";
-import { InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
+import { DeleteEmployeeRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
 
 @Controller('/api/admin')
 export class AdminController {
     constructor(private adminService: AdminService) {}
 
-    @Post('/insert-employee')
+    @Post('/add-employee')
     insertEmployee(@Body() request: InsertEmployeeRequest) {
         return this.adminService.insertEmployee(request)
     }
@@ -17,8 +17,8 @@ export class AdminController {
     }
 
     @Post('/delete-employee')
-    deleteEmployee(@Body("username") username: String) {
-        return this.adminService.deleteEmployee(username)
+    deleteEmployee(@Body() request: DeleteEmployeeRequest) {
+        return this.adminService.deleteEmployee(request.username)
     }
 
     @Post('/top-n-vip-customers')
@@ -29,5 +29,15 @@ export class AdminController {
     @Post('/top-n-productive-employees')
     getTopNProductiveEmployees(@Body() request: TopNProductiveEmployeesRequest) {
         return this.adminService.topProductiveEmployee(request)
+    }
+
+    @Get('/employees')
+    getEmployees() {
+        return this.adminService.getEmployees()
+    }
+
+    @Post('/employee')
+    getEmployeeDetail(@Body("username") username: string) {
+        return this.adminService.getEmployeeDetail(username)
     }
 }
