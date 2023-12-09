@@ -10,11 +10,11 @@ export class AdminService {
         try {
             request.dob.replaceAll('-','/')
 
-            const result: number = await this.prismaService.$executeRawUnsafe(
+            await this.prismaService.$executeRawUnsafe(
                 `
                 EXEC InsertNewEmployeeAccount 
                 @username = '${request.username}', 
-                @password = '${request.password}',
+                @password = '${request.username}',
                 @salary = ${request.salary},
                 @dob = '${request.dob}',
                 @employee_type = '${request.employee_type}',
@@ -29,7 +29,10 @@ export class AdminService {
                 @store_id = ${request.store_id};
                 `
             )
-            console.log(result)
+            return {
+                statusCode: 200,
+                message: ""
+            }
         }
         catch(err) {
             throw new HttpException(
@@ -60,19 +63,20 @@ export class AdminService {
             
             var updateString = array.join(',') + ';'
             
-            const result: number = await this.prismaService.$executeRawUnsafe(`EXEC UpdateEmployeeAccount @username = 'nguyen.truong', ${updateString}`)
+            await this.prismaService.$executeRawUnsafe(`EXEC UpdateEmployeeAccount @username = '${request.username}', ${updateString}`)
             
-            const result1: number = await this.prismaService.$executeRawUnsafe(`
+            await this.prismaService.$executeRawUnsafe(`
             DELETE FROM employee_numbers WHERE employee_username = '${request.username}';
             `) 
             
             for (const number in request.newNumbers) {
-                await this.prismaService.$executeRawUnsafe(`INSERT INTO employee_numbers VALUES ('${request.username}', ${request.newNumbers[number]});`)
+                await this.prismaService.$executeRawUnsafe(`INSERT INTO employee_numbers VALUES ('${request.username}', '${request.newNumbers[number]}');`)
             }
 
-            console.log(request.newNumbers)
-
-            // for ()
+            return {
+                statusCode: 200,
+                message: ""
+            }
 
         } catch(err) {
             throw new HttpException(
@@ -85,6 +89,10 @@ export class AdminService {
     async deleteEmployee(username: String) {
         try {
             const result: number = await this.prismaService.$executeRawUnsafe(`EXEC RemoveEmployeeAccount '${username}';`)
+            return {
+                statusCode: 200,
+                message: ""
+            }
         }
         catch(err) {
             throw new HttpException(
@@ -97,8 +105,10 @@ export class AdminService {
     async topVipCustormers(request: TopNCustomersRequest) {
         try {
             const result = await this.prismaService.$queryRawUnsafe(`EXEC GetTopCustomersWithLargestOrders '${request.from_date}', '${request.to_date}', ${request.top};`)
-            console.log(result)
-            return result
+            return {
+                statusCode: 200,
+                message: result
+            }
         }
         catch(err) {
             throw new HttpException(
@@ -112,7 +122,10 @@ export class AdminService {
         try {
             const result = await this.prismaService.$queryRawUnsafe(`EXEC GetTopSellingEmployees '${request.from_date}', '${request.to_date}', ${request.top};`)
             console.log(result)
-            return result
+            return {
+                statusCode: 200,
+                message: result
+            }
         }
         catch(err) {
             throw new HttpException(
@@ -146,7 +159,10 @@ export class AdminService {
 
                 result[employee]['numbers'] = numbers
             }
-            return {result: result}
+            return {
+                statusCode: 200,
+                message: result
+            }
         } catch(err) {
             throw new HttpException(
                 err.meta.message,   
@@ -158,22 +174,33 @@ export class AdminService {
     async getEmployeeDetail(username: string) {
         try {
             const result = await this.prismaService.employee_accounts.findUnique({ where: { username: username } })
-
-            const employee_numbers = await this.prismaService.employee_numbers.findMany({
-                select: { number: true },
-                where: { employee_username: username }
-            })
-
-            result['numbers'] = []
-
-            for (const i in employee_numbers) {
-                result['numbers'].push(employee_numbers[i]['number'])
+            
+            if (result == null) {
+                throw new HttpException("Cannot find username", 400)
             }
 
-            return result
+            else {
+                // const result = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE username='${username}'`)
+    
+                const employee_numbers = await this.prismaService.employee_numbers.findMany({
+                    select: { number: true },
+                    where: { employee_username: username }
+                })
+    
+                result['numbers'] = []
+    
+                for (const i in employee_numbers) {
+                    result['numbers'].push(employee_numbers[i]['number'])
+                }
+    
+                return {
+                    statusCode: 200,
+                    message: result
+                }
+            }
         } catch (err) {
             throw new HttpException(
-                err.meta.message,   
+                (err.meta == undefined) ? err.response : err.meta.message,   
                 HttpStatus.BAD_REQUEST
             )
         }

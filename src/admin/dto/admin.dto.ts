@@ -1,11 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
-import exp from "constants";
 
 export class InsertEmployeeRequest {
     @ApiProperty()
     username: string;
-    @ApiProperty()
-    password: string;
     @ApiProperty()
     salary: number;
     @ApiProperty()
