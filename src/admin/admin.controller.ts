@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req } from "@nestjs/common";
 import { AdminService } from "./admin.service";
-import { DeleteEmployeeRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
+import { DeleteEmployeeRequest, GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
 
 @Controller('/api/admin')
 export class AdminController {
@@ -46,5 +46,17 @@ export class AdminController {
     @HttpCode(200)
     getEmployeeDetail(@Body("username") username: string) {
         return this.adminService.getEmployeeDetail(username)
+    }
+
+    @Get('/stores')
+    @HttpCode(200)
+    getStores() {
+        return this.adminService.getStores()
+    }
+
+    @Post('/best-seller')
+    @HttpCode(200)
+    getBestSeller(@Body() request: GetBestSellerRequest) {
+        return this.adminService.getBestSeller(request)
     }
 }

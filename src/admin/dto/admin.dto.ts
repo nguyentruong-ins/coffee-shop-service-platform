@@ -86,3 +86,10 @@ export class DeleteEmployeeRequest {
     @ApiProperty()
     username: string
 }
+
+export class GetBestSellerRequest {
+    @ApiProperty()
+    from_date: string
+    @ApiProperty()
+    to_date: string
+}
