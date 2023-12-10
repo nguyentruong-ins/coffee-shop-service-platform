@@ -56,7 +56,11 @@ with open("./prisma/sql/1.2.3/proc_top_customers.sql", "r") as f:
     SQL_QUERY = f.read()
     cursor.execute(SQL_QUERY)
 
-with open("./prisma/sql/1.2.3/proc_top_employees.sql", "r") as f:
+with open("./prisma/sql/1.2.3/proc_top_shifts.sql", "r") as f:
+    SQL_QUERY = f.read()
+    cursor.execute(SQL_QUERY)
+
+with open("./prisma/sql/1.2.3/proc_employee_in_shift.sql", "r") as f:
     SQL_QUERY = f.read()
     cursor.execute(SQL_QUERY)
 
