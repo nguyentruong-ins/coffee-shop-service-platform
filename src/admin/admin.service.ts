@@ -142,7 +142,7 @@ export class AdminService {
 
             for (const i in result as any) {
                 const emp = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE id = ${result[i].id};`)
-                returnValue.push(emp)
+                returnValue.push(emp[0])
             }  
 
             return {
