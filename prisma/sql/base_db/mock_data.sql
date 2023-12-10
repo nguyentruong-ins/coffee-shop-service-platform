@@ -1,217 +1,217 @@
 -- 026_insert_ingredients.sql
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('milk');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('sugar');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('flour');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('vanilla extract');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('cocoa powder');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('eggs');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('butter');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('whipped cream');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('strawberries');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('lemon juice');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('mint leaves');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('chocolate chips');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('condensed milk');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('coffee');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('rum');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('caramel sauce');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('nutella');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('coconut flakes');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('ice cream');
-insert into ingredients
-
-values
+INSERT INTO ingredients
+	(ingredient_name)
+VALUES
 	('raspberries');
 
 -- 027_insert_categories.sql
 INSERT INTO categories
-values
+VALUES
 	('smoothie');
 INSERT INTO categories
-values
+VALUES
 	('coffee');
 INSERT INTO categories
-values
+VALUES
 	('juice');
 INSERT INTO categories
-values
+VALUES
 	('tea');
 INSERT INTO categories
-values
+VALUES
 	('desert');
 
 -- 028_insert_items.sql
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Capuchino', '...', '...', 45000, 2);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Lover Coffee', '...', '...', 50000, 2);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Magical Coffee', '...', '...', 45000, 2);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Egg Coffee', '...', '...', 45000, 2);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Hot Ice Coffee', '...', '...', 45000, 2);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Weasel Coffee', '...', '...', 45000, 2);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Chocolate Coffee', '...', '...', 45000, 2);
 
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Chocolate Matba', '...', '...', 45000, 1);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Happy Liquid', '...', '...', 45000, 1);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Coolest Smoothie', '...', '...', 45000, 1);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Its Green Inside Smoothie', '...', '...', 45000, 1);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Banana Smoothie', '...', '...', 45000, 1);
 
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Detox Juice', '...', '...', 45000, 3);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Dragon Fruit Juice', '...', '...', 45000, 3);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Grape Juice', '...', '...', 45000, 3);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Orange Juice', '...', '...', 45000, 3);
 
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Lemon Peach Tea', '...', '...', 45000, 4);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Victory Tea', '...', '...', 45000, 4);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Lucky Tea', '...', '...', 45000, 4);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Chrysanthemum', '...', '...', 45000, 4);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Honey Tea', '...', '...', 45000, 4);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Bubble Tea', '...', '...', 45000, 4);
 
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Berry Pudding', '...', '...', 50000, 5);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Fruit Yogurt', '...', '...', 50000, 5);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Lovely Donut', '...', '...', 50000, 5);
 INSERT INTO items
 	(item_name, description, instruction, base_price, category_id)
-values
+VALUES
 	('Macarons', '...', '...', 50000, 5);
 
 
 -- 029_insert_into_menus.sql
 INSERT INTO menus
 	(menu_name, period, started_at)
-values
+VALUES
 	('Normal Menu', 0, convert(datetime, '01/01/2000', 103))
 
 -- 030_insert_into_accounts.sql
@@ -239,62 +239,6 @@ INSERT INTO accounts
 	(username, password)
 VALUES
 	('employee6', 'password6');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee7', 'password7');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee8', 'password8');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee9', 'password9');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee10', 'password10');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee11', 'password11');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee12', 'password12');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee13', 'password13');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee14', 'password14');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee15', 'password15');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee16', 'password16');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee17', 'password17');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee18', 'password18');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee19', 'password19');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('employee20', 'password20');
 
 INSERT INTO accounts
 	(username, password)
@@ -312,136 +256,88 @@ INSERT INTO accounts
 	(username, password)
 VALUES
 	('customer4', 'password4');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('customer5', 'password5');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('customer6', 'password6');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('customer7', 'password7');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('customer8', 'password8');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('customer9', 'password9');
-INSERT INTO accounts
-	(username, password)
-VALUES
-	('customer10', 'password10');
 
 -- 031_insert_into_memberships.sql
 INSERT INTO memberships
 	(description, membership_type, discount_percent)
-values
+VALUES
 	('...', 'BRONZE', 5);
 INSERT INTO memberships
 	(description, membership_type, discount_percent)
-values
+VALUES
 	('...', 'SILVER', 7);
 INSERT INTO memberships
 	(description, membership_type, discount_percent)
-values
+VALUES
 	('...', 'GOLD', 10);
 INSERT INTO memberships
 	(description, membership_type, discount_percent)
-values
+VALUES
 	('...', 'DIAMOND', 15);
 INSERT INTO memberships
 	(description, membership_type, discount_percent)
-values
+VALUES
 	('...', 'VIP', 25);
 
 -- 032_insert_into_customers.sql
-insert into customers
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
+VALUES
 	('FEMALE', 'Adan', 'McConway', '5957591109', 3);
-insert into customers
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
-	('FEMALE', 'Janina', 'McLewd', '4651383549', 2);
-insert into customers
+VALUES
+	('FEMALE', 'Janina', 'McLewd', '4651383549', 5);
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
+VALUES
 	('FEMALE', 'Fiorenze', 'Boij', '6717187461', 3);
-insert into customers
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
+VALUES
 	('MALE', 'Christoforo', 'Floyde', '2875947838', 3);
-insert into customers
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
+VALUES
 	('MALE', 'Celka', 'Fidgett', '2565452069', 1);
-insert into customers
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
-	('OTHER', 'Lyman', 'Winsome', '3431531803', 4);
-insert into customers
+VALUES
+	('OTHER', 'Lyman', 'Winsome', '3431531803', 5);
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
-	('FEMALE', 'Morgen', 'Goodey', '9345745078', 1);
-insert into customers
+VALUES
+	('FEMALE', 'Morgen', 'Goodey', '9345745078', 4);
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
+VALUES
 	('FEMALE', 'Vicki', 'Braitling', '1896472820', 5);
-insert into customers
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
-	('OTHER', 'Miguelita', 'Grimme', '6006341027', 2);
-insert into customers
+VALUES
+	('OTHER', 'Miguelita', 'Grimme', '6006341027', 4);
+INSERT INTO customers
 	(sex, first_name, last_name, phone_number, membership_id)
-values
-	('MALE', 'Madlen', 'Craiker', '7165935688', 1);
+VALUES
+	('MALE', 'Madlen', 'Craiker', '7165935688', 4);
 
 -- 033_insert_into_customer_accounts.sql
 INSERT INTO customer_accounts
 	(username, total_points, account_status, latest_ordered_at, customer_id)
-values
+VALUES
 	('customer1', 0, 'ACTIVE', convert(datetime, '21/11/2023', 103), 1);
 INSERT INTO customer_accounts
 	(username, total_points, account_status, latest_ordered_at, customer_id)
-values
-	('customer2', 100, 'INACTIVE', convert(datetime, '01/01/2017', 103), 2);
-INSERT INTO customer_accounts
-	(username, total_points, account_status, latest_ordered_at, customer_id)
-values
+VALUES
 	('customer3', 20, 'ACTIVE', convert(datetime, '1/11/2023', 103), 3);
 INSERT INTO customer_accounts
 	(username, total_points, account_status, latest_ordered_at, customer_id)
-values
+VALUES
 	('customer4', 50, 'ACTIVE', convert(datetime, '20/11/2023', 103), 4);
 INSERT INTO customer_accounts
 	(username, total_points, account_status, latest_ordered_at, customer_id)
 VALUES
-	('customer5', 75, 'ACTIVE', convert(datetime, '15/10/2023', 103), 5);
-INSERT INTO customer_accounts
-	(username, total_points, account_status, latest_ordered_at, customer_id)
-VALUES
-	('customer6', 10, 'ACTIVE', convert(datetime, '05/11/2023', 103), 6);
-INSERT INTO customer_accounts
-	(username, total_points, account_status, latest_ordered_at, customer_id)
-VALUES
-	('customer7', 30, 'INACTIVE', convert(datetime, '28/09/2022', 103), 7);
-INSERT INTO customer_accounts
-	(username, total_points, account_status, latest_ordered_at, customer_id)
-VALUES
-	('customer8', 90, 'ACTIVE', convert(datetime, '10/12/2023', 103), 8);
-INSERT INTO customer_accounts
-	(username, total_points, account_status, latest_ordered_at, customer_id)
-VALUES
-	('customer9', 15, 'ACTIVE', convert(datetime, '03/11/2023', 103), 9);
-INSERT INTO customer_accounts
-	(username, total_points, account_status, latest_ordered_at, customer_id)
-VALUES
-	('customer10', 50, 'INACTIVE', convert(datetime, '12/07/2021', 103), 10);
+	('customer2', 100, 'INACTIVE', convert(datetime, '01/01/2017', 103), 2);
 
 -- 034_insert_into_stores.sql
 ALTER TABLE stores 
@@ -554,52 +450,52 @@ CHECK CONSTRAINT fk_manager_employee
 -- 036_insert_vouchers.sql
 INSERT INTO vouchers
 	(description, voucher_name, started_at, status, promotional_amount, total_applied_amount, period)
-values
+VALUES
 	('...', 'Monthly voucher', '11-01-2023', 0, 20000, 100000, 30);
 
 -- 037_insert_orders.sql
 -- user_1
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(200000, 20000, 20000, '11-10-2023 07:00');
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(50000, 0, 5000, '11-15-2023 08:00');
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(90000, 0, 9000, '11-16-2023 09:00');
 
 -- user_2
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(500000, 20000, 125000, '11-17-2023 10:00');
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(200000, 20000, 50000, '11-18-2023 11:00');
 
 -- user_3
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(300000, 0, 30000, '11-09-2023 12:00');
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(200000, 0, 20000, '11-10-2023 13:00');
 
 -- user_4
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(300000, 0, 30000, '11-08-2023 14:00');
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
-values
+VALUES
 	(200000, 0, 20000, '11-10-2023 17:00');
 
 -- 038_insert_online_orders.sql

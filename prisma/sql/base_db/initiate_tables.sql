@@ -1,268 +1,268 @@
 -- 001_add_ingredients_table.sql
-create table ingredients (
-	id int identity(1,1) primary key,
-	ingredient_name varchar(255) not null
+CREATE TABLE ingredients (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	ingredient_name VARCHAR(255) NOT NULL
 );
 
 -- 002_add_categories_table.sql
-create table categories (
-	id int identity(1,1) primary key,
-	category_name varchar(255) not null
+CREATE TABLE categories (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	category_name VARCHAR(255) NOT NULL
 );
 
 -- 003_add_items_table.sql
-create table items (
-	id int identity(1,1) primary key,
-	item_name varchar(255) not null,
-	description varchar(500),
-	instruction varchar(255),
-	base_price money not null,
-	category_id int,
-	constraint fk_item_category foreign key	(category_id) references categories(id)
+CREATE TABLE items (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	item_name VARCHAR(255) NOT NULL,
+	description VARCHAR(500),
+	instruction VARCHAR(255),
+	base_price MONEY NOT NULL,
+	category_id INT,
+	CONSTRAINT fk_item_category FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
 -- 004_add_item_has_ingredients_table.sql
-create table item_has_ingredients(
-	id int identity(1,1) primary key,
-	item_id int not null,
-	ingredient_id int not null,
-	quantity smallint,
+CREATE TABLE item_has_ingredients(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	item_id INT NOT NULL,
+	ingredient_id INT NOT NULL,
+	quantity SMALLINT,
 	unit char(20),
-	constraint fk_item_ingredient_1 foreign key (item_id) references items(id),
-	constraint fk_item_ingredient_2 foreign key (ingredient_id) references ingredients(id)
+	CONSTRAINT fk_item_ingredient_1 FOREIGN KEY (item_id) REFERENCES items(id),
+	CONSTRAINT fk_item_ingredient_2 FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 );
 
 -- 005_add_item_has_toppings.sql
-create table item_has_toppings(
-	id int identity(1,1) primary key,
-	item_id int not null,
-	topped_item_id int not null,
-	constraint fk_item_topping foreign key (item_id) references items(id),
-	constraint fk_item_topped foreign key (topped_item_id) references items(id)
+CREATE TABLE item_has_toppings(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	item_id INT NOT NULL,
+	topped_item_id INT NOT NULL,
+	CONSTRAINT fk_item_topping FOREIGN KEY (item_id) REFERENCES items(id),
+	CONSTRAINT fk_item_topped FOREIGN KEY (topped_item_id) REFERENCES items(id)
 );
 
 -- 006_add_menu_table.sql
-create table menus(
-	id int identity(1,1) primary key,
-	menu_name varchar(255) not null,
-	period int,
-	started_at datetime2 not null,
+CREATE TABLE menus(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	menu_name VARCHAR(255) NOT NULL,
+	period INT,
+	started_at DATETIME2 NOT NULL,
 );
 
 -- 007_add_orders_table.sql
-create table orders(
-	id int identity(1,1) primary key,
-	total_amount money not null,
-	discount_amount_by_voucher money,
-	discount_amount_by_membership money,
-	ordered_at datetime2
+CREATE TABLE orders(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	total_amount MONEY NOT NULL DEFAULT 0,
+	discount_amount_by_voucher MONEY DEFAULT 0,
+	discount_amount_by_membership MONEY DEFAULT 0,
+	ordered_at DATETIME2 DEFAULT GETDATE()
 );
 
 -- 008_add_voucher_table.sql
-create table vouchers(
-	id int identity(1,1) primary key,
-	description varchar(500),
-	voucher_name varchar(255),
-	started_at datetime2,
-	status bit default 0,
-	promotional_amount money not null,
-	total_applied_amount money not null,
-	period int
+CREATE TABLE vouchers(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	description VARCHAR(500),
+	voucher_name VARCHAR(255),
+	started_at DATETIME2,
+	status BIT DEFAULT 0,
+	promotional_amount MONEY NOT NULL,
+	total_applied_amount MONEY NOT NULL,
+	period INT
 );
 
 -- 009_add_memberships_table.sql
-create table memberships(
-	id int identity(1,1) primary key,
-	description varchar(255),
-	membership_type varchar(50),
-	discount_percent tinyint not null
+CREATE TABLE memberships(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	description VARCHAR(255),
+	membership_type VARCHAR(50),
+	discount_percent TINYINT NOT NULL
 );
 
 -- 010_add_customers_table.sql
-create table customers(
-	id int identity(1,1) primary key,
-	sex varchar(20),
-	last_name varchar(255),
-	first_name varchar(255) not null,
-	phone_number varchar(10),
-	membership_id int,
-	constraint fk_customer_membership foreign key (membership_id) references memberships(id)
+CREATE TABLE customers(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	sex VARCHAR(20),
+	last_name VARCHAR(255),
+	first_name VARCHAR(255) NOT NULL,
+	phone_number VARCHAR(10),
+	membership_id INT,
+	CONSTRAINT fk_customer_membership FOREIGN KEY (membership_id) REFERENCES memberships(id)
 );
 
 -- 011_add_customer_addresses_table.sql
-create table customer_addresses(
-	id int identity(1,1),
-	customer_id int not null,
-	number int,
-	street varchar(255),
-	district varchar(255),
-	constraint pk_customer_address primary key (id, customer_id, number, street, district),
-	constraint fk_customer_address foreign key (customer_id) references customers(id)
+CREATE TABLE customer_addresses(
+	id INT IDENTITY(1,1),
+	customer_id INT NOT NULL,
+	number INT,
+	street VARCHAR(255),
+	district VARCHAR(255),
+	CONSTRAINT pk_customer_address PRIMARY KEY (id, customer_id, number, street, district),
+	CONSTRAINT fk_customer_address FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 -- 012_add_months_table.sql
-create table months(
-	id int identity(1,1) primary key,
-	month tinyint not null,
-	year smallint not null,
-	constraint uq_month_year_id unique (month, year)
+CREATE TABLE months(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	month TINYINT NOT NULL,
+	year SMALLINT NOT NULL,
+	CONSTRAINT uq_month_year_id UNIQUE (month, year)
 );
 
 -- 013_add_shifts_table.sql
-create table shifts(
-	id int identity(1,1) primary key,
-	"month" tinyint,
-	"year" smallint,
-	started_at time check (started_at >= '05:00:00'),
-	ended_at time check (ended_at <= '23:00:00'),
-	"day" tinyint,
-	constraint fk_shift_month foreign key (month, year) references months(month, year),
-	constraint uq_shift_month_year unique (id, month, year)
+CREATE TABLE shifts(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	"month" TINYINT,
+	"year" SMALLINT,
+	started_at TIME CHECK (started_at >= '05:00:00'),
+	ended_at TIME CHECK (ended_at <= '23:00:00'),
+	"day" TINYINT,
+	CONSTRAINT fk_shift_month FOREIGN KEY (month, year) REFERENCES months(month, year),
+	CONSTRAINT uq_shift_month_year UNIQUE (id, month, year)
 );
 
 -- 014_add_accounts_table.sql
-create table accounts(
-	id int identity(1,1) primary key,
-	username varchar(255) not null,
-	password varchar(255),
-	constraint uq_username unique (username)
+CREATE TABLE accounts(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	username VARCHAR(255) NOT NULL,
+	password VARCHAR(255),
+	CONSTRAINT uq_username UNIQUE (username)
 );
 
 -- 015_add_customer_accounts_table.sql
-create table customer_accounts(
-	id int identity(1,1) primary key,
-	username varchar(255) not null,
-	total_points int not null default 0,
-	account_status varchar(10) not null default 'active',
-	latest_ordered_at datetime2,
-	customer_id int,
-	constraint fk_customer_base_account foreign key (username) references accounts(username),
-	constraint fk_customer_id foreign key (customer_id) references customers(id),
-	constraint uq_username_customer unique (username)
+CREATE TABLE customer_accounts(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	username VARCHAR(255) NOT NULL,
+	total_points INT NOT NULL DEFAULT 0,
+	account_status VARCHAR(10) NOT NULL DEFAULT 'active',
+	latest_ordered_at DATETIME2,
+	customer_id INT,
+	CONSTRAINT fk_customer_base_account FOREIGN KEY (username) REFERENCES accounts(username),
+	CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id),
+	CONSTRAINT uq_username_customer UNIQUE (username)
 );
 
 -- 016_add_order_vouchers_table.sql
-create table order_vouchers (
-	id int identity(1,1) primary key,
-	order_id int,
-	voucher_id int,
-	constraint uq_order_voucher unique (order_id),
-	constraint fk_voucher_order foreign key (order_id) references orders(id),
-	constraint fk_voucher_id foreign key (voucher_id) references vouchers(id)
+CREATE TABLE order_vouchers (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	order_id INT,
+	voucher_id INT,
+	CONSTRAINT uq_order_voucher UNIQUE (order_id),
+	CONSTRAINT fk_voucher_order FOREIGN KEY (order_id) REFERENCES orders(id),
+	CONSTRAINT fk_voucher_id FOREIGN KEY (voucher_id) REFERENCES vouchers(id)
 );
 
 -- 017_add_menu_items_table.sql
-create table menu_items(
-	id int identity(1,1) primary key,
-	item_id int,
-	menu_id int,
-	price int,
-	constraint uq_item_menu unique (item_id, menu_id),
-	constraint fk_menu_item_id foreign key (item_id) references items(id),
-	constraint fk_meny_id foreign key (menu_id) references menus(id)
+CREATE TABLE menu_items(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	item_id INT,
+	menu_id INT,
+	price INT,
+	CONSTRAINT uq_item_menu UNIQUE (item_id, menu_id),
+	CONSTRAINT fk_menu_item_id FOREIGN KEY (item_id) REFERENCES items(id),
+	CONSTRAINT fk_meny_id FOREIGN KEY (menu_id) REFERENCES menus(id)
 );
 
 -- 018_add_order_items_table.sql
-create table order_items(
-	id int identity(1,1) primary key,
-	order_id int,
-	item_id int,
-	actual_price int,
-	quantity int,
-	constraint uq_item_order unique (order_id, item_id),
-	constraint fk_order_id foreign key (order_id) references orders(id),
-	constraint fk_order_item_id foreign key (item_id) references items(id)
+CREATE TABLE order_items(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	order_id INT,
+	item_id INT,
+	actual_price INT,
+	quantity INT,
+	CONSTRAINT uq_item_order UNIQUE (order_id, item_id),
+	CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
+	CONSTRAINT fk_order_item_id FOREIGN KEY (item_id) REFERENCES items(id)
 );
 
 -- 019_add_employee_accounts_table.sql
-create table employee_accounts(
-	id int identity(1,1) primary key,
-	username varchar(255),
-	salary money,
-	address varchar(255),
-	dob datetime2,
-	account_type varchar(100),
-	last_name varchar(255),
-	first_name varchar(255),
-	sex varchar(20),
-	started_date datetime2,
-	ssn varchar(9),
-	employee_type varchar(20),
-	store_id int,
-	status bit default 1,
-	constraint uq_username_employee_account unique (username),
-	constraint uq_employee_ssn unique (ssn)
+CREATE TABLE employee_accounts(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	username VARCHAR(255),
+	salary MONEY,
+	address VARCHAR(255),
+	dob DATETIME2,
+	account_type VARCHAR(100),
+	last_name VARCHAR(255),
+	first_name VARCHAR(255),
+	sex VARCHAR(20),
+	started_date DATETIME2,
+	ssn VARCHAR(9),
+	employee_type VARCHAR(20),
+	store_id INT,
+	status BIT DEFAULT 1,
+	CONSTRAINT uq_username_employee_account UNIQUE (username),
+	CONSTRAINT uq_employee_ssn UNIQUE (ssn)
 );
 
 -- 020_add_stores_table.sql
-create table stores(
-	id int identity(1,1) primary key,
-	manager_username varchar(255),
-	store_name varchar(255),
-	address varchar(255),
-	store_number varchar(10),
-	opened_time time check (opened_time >= '5:30:00'),
-	closed_time time check (closed_time <= '23:30:00'),
-	opened_date date,
-	month_revenue money,
-	no_employees smallint,
-	constraint fk_manager_employee foreign key (manager_username) references employee_accounts(username)
+CREATE TABLE stores(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	manager_username VARCHAR(255),
+	store_name VARCHAR(255),
+	address VARCHAR(255),
+	store_number VARCHAR(10),
+	opened_time TIME CHECK (opened_time >= '5:30:00'),
+	closed_time TIME CHECK (closed_time <= '23:30:00'),
+	opened_date DATE,
+	month_revenue MONEY,
+	no_employees SMALLINT,
+	CONSTRAINT fk_manager_employee FOREIGN KEY (manager_username) REFERENCES employee_accounts(username)
 );
 
 -- 021_add_foreign_key_to_store_for_account.sql
-alter table employee_accounts
-add constraint fk_store_id foreign key (store_id) references stores(id);
+ALTER TABLE employee_accounts
+ADD CONSTRAINT fk_store_id FOREIGN KEY (store_id) REFERENCES stores(id);
 
 
 -- 022_add_employee_shifts_table.sql
-create table employee_shifts(
-	id int identity(1,1) primary key,
-	username varchar(255),
-	shift_id int,
-	"month" tinyint,
-	"year" smallint,
-	constraint fk_shift_emp_username foreign key (username) references employee_accounts(username),
-	constraint uq_username_shift_month_year unique (username, shift_id, month, year),
-	constraint fk_employee_shift foreign key (shift_id, month, year) references shifts(id, month, year)
+CREATE TABLE employee_shifts(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	username VARCHAR(255),
+	shift_id INT,
+	"month" TINYINT,
+	"year" SMALLINT,
+	CONSTRAINT fk_shift_emp_username FOREIGN KEY (username) REFERENCES employee_accounts(username),
+	CONSTRAINT uq_username_shift_month_year UNIQUE (username, shift_id, month, year),
+	CONSTRAINT fk_employee_shift FOREIGN KEY (shift_id, month, year) REFERENCES shifts(id, month, year)
 );
 
 -- 023_add-employee_numbers_table.sql
-create table employee_numbers(
-	id int identity(1,1) primary key,
-	employee_username varchar(255),
-	number varchar(10),
-	constraint fk_emp_nums foreign key (employee_username) references accounts(username),
-	constraint uq_employee_number unique (employee_username, number)
+CREATE TABLE employee_numbers(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	employee_username VARCHAR(255),
+	number VARCHAR(10),
+	CONSTRAINT fk_emp_nums FOREIGN KEY (employee_username) REFERENCES accounts(username),
+	CONSTRAINT uq_employee_number UNIQUE (employee_username, number)
 );
 
 -- 024_add_directly_orders_table.sql
-create table directly_orders(
-	id int identity(1,1) primary key,
-	order_id int,
-	"change" money,
-	customer_payment money,
-	customer_id int,
-	export_emp_username varchar(255),
-	constraint fk_directly_order_id foreign key (order_id) references orders(id),
-	constraint fk_directly_order_customer_id foreign key (customer_id) references customers(id),
-	constraint fk_directly_oder_export_emp foreign key (export_emp_username) references employee_accounts(username)
+CREATE TABLE directly_orders(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	order_id INT,
+	"change" MONEY,
+	customer_payment MONEY,
+	customer_id INT,
+	export_emp_username VARCHAR(255),
+	CONSTRAINT fk_directly_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
+	CONSTRAINT fk_directly_order_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id),
+	CONSTRAINT fk_directly_oder_export_emp FOREIGN KEY (export_emp_username) REFERENCES employee_accounts(username)
 );
 
 -- 025_add_online_orders_table.sql
-create table online_orders(
-	id int identity(1,1) primary key,
-	order_id int,
-	status varchar(20),
-	shipping_fee money,
-	shipping_address varchar(255),
-	predicted_arrived_time datetime2,
-	customer_account_username varchar(255),
-	export_employee_username varchar(255),
-	shipping_employee_username varchar(255),
-	discount_amount_by_point money,
-	constraint fk_online_order_id foreign key (order_id) references orders(id),
-	constraint fk_online_order_customer foreign key (customer_account_username) references customer_accounts(username),
-	constraint fk_online_order_export_emp foreign key (export_employee_username) references employee_accounts(username),
-	constraint fk_online_order_ship_emp foreign key (shipping_employee_username) references employee_accounts(username),
-	constraint uq_online_order unique (order_id)
+CREATE TABLE online_orders(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	order_id INT,
+	status VARCHAR(20),
+	shipping_fee MONEY,
+	shipping_address VARCHAR(255),
+	predicted_arrived_time DATETIME2,
+	customer_account_username VARCHAR(255),
+	export_employee_username VARCHAR(255),
+	shipping_employee_username VARCHAR(255),
+	discount_amount_by_point MONEY,
+	CONSTRAINT fk_online_order_id FOREIGN KEY (order_id) REFERENCES orders(id),
+	CONSTRAINT fk_online_order_customer FOREIGN KEY (customer_account_username) REFERENCES customer_accounts(username),
+	CONSTRAINT fk_online_order_export_emp FOREIGN KEY (export_employee_username) REFERENCES employee_accounts(username),
+	CONSTRAINT fk_online_order_ship_emp FOREIGN KEY (shipping_employee_username) REFERENCES employee_accounts(username),
+	CONSTRAINT uq_online_order UNIQUE (order_id)
 );
