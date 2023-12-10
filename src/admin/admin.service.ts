@@ -137,9 +137,17 @@ export class AdminService {
     async getEmployeesInShift(shiftId: number) {
         try {
             const result = await this.prismaService.$queryRawUnsafe(`EXEC GetEmployeesByShiftId ${shiftId};`)
+
+            const returnValue = []
+
+            for (const i in result as any) {
+                const emp = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE id = ${result[i].id};`)
+                returnValue.push(emp)
+            }  
+
             return {
                 statusCode: 200,
-                message: result
+                message: returnValue
             }
         }
         catch(err) {
