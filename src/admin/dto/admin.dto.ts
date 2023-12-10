@@ -73,7 +73,7 @@ export class TopNCustomersRequest {
     top: number
 }
 
-export class TopNProductiveEmployeesRequest {
+export class TopNSellingShifts {
     @ApiProperty()
     from_date: string;
     @ApiProperty()
