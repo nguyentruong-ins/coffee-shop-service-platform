@@ -4,11 +4,11 @@ import { GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopN
 
 @Injectable({})
 export class AdminService {
-    constructor(private prismaService: PrismaService) {}
+    constructor(private prismaService: PrismaService) { }
 
     async insertEmployee(request: InsertEmployeeRequest) {
         try {
-            request.dob.replaceAll('-','/')
+            request.dob.replaceAll('-', '/')
 
             await this.prismaService.$executeRawUnsafe(
                 `
@@ -34,7 +34,7 @@ export class AdminService {
                 message: ""
             }
         }
-        catch(err) {
+        catch (err) {
             throw new HttpException(
                 err.meta.message,
                 HttpStatus.BAD_REQUEST
@@ -44,7 +44,7 @@ export class AdminService {
 
     async updateEmployee(request: UpdateEmployeeRequest) {
         try {
-            request.newDob.replaceAll('-','/')
+            request.newDob.replaceAll('-', '/')
 
             var array = new Array()
             request.newPassword !== undefined ? array.push('\@new_password = ' + '\'' + request.newPassword + '\'') : {}
@@ -60,15 +60,15 @@ export class AdminService {
             request.newStartedDate !== undefined ? array.push('\@new_started_date = ' + '\'' + request.newStartedDate + '\'') : {}
             request.newSsn !== undefined ? array.push('\@new_ssn= ' + '\'' + request.newSsn + '\'') : {}
             request.newStoreId !== undefined ? array.push('\@new_store_id = ' + request.newStoreId) : {}
-            
+
             var updateString = array.join(',') + ';'
-            
+
             await this.prismaService.$executeRawUnsafe(`EXEC UpdateEmployeeAccount @username = '${request.username}', ${updateString}`)
-            
+
             await this.prismaService.$executeRawUnsafe(`
             DELETE FROM employee_numbers WHERE employee_username = '${request.username}';
-            `) 
-            
+            `)
+
             for (const number in request.newNumbers) {
                 await this.prismaService.$executeRawUnsafe(`INSERT INTO employee_numbers VALUES ('${request.username}', '${request.newNumbers[number]}');`)
             }
@@ -78,7 +78,7 @@ export class AdminService {
                 message: ""
             }
 
-        } catch(err) {
+        } catch (err) {
             throw new HttpException(
                 err.meta.message,
                 HttpStatus.BAD_REQUEST
@@ -94,7 +94,7 @@ export class AdminService {
                 message: ""
             }
         }
-        catch(err) {
+        catch (err) {
             throw new HttpException(
                 err.meta.message,
                 HttpStatus.BAD_REQUEST
@@ -110,7 +110,7 @@ export class AdminService {
                 message: result
             }
         }
-        catch(err) {
+        catch (err) {
             throw new HttpException(
                 err.meta.message,
                 HttpStatus.BAD_REQUEST
@@ -126,7 +126,7 @@ export class AdminService {
                 message: result
             }
         }
-        catch(err) {
+        catch (err) {
             throw new HttpException(
                 err.meta.message,
                 HttpStatus.BAD_REQUEST
@@ -142,15 +142,15 @@ export class AdminService {
 
             for (const i in result as any) {
                 const emp = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE id = ${result[i].id};`)
-                returnValue.push(emp)
-            }  
+                returnValue.push(emp[0])
+            }
 
             return {
                 statusCode: 200,
                 message: returnValue
             }
         }
-        catch(err) {
+        catch (err) {
             throw new HttpException(
                 err.meta.message,
                 HttpStatus.BAD_REQUEST
@@ -164,10 +164,10 @@ export class AdminService {
 
             for (const employee in result) {
                 const test = await this.prismaService.employee_numbers.findMany(
-                    { 
+                    {
                         select: {
                             number: true
-                        }, 
+                        },
                         where: { employee_username: result[employee].username }
                     }
                 )
@@ -185,9 +185,9 @@ export class AdminService {
                 statusCode: 200,
                 message: result
             }
-        } catch(err) {
+        } catch (err) {
             throw new HttpException(
-                err.meta.message,   
+                err.meta.message,
                 HttpStatus.BAD_REQUEST
             )
         }
@@ -196,17 +196,17 @@ export class AdminService {
     async getEmployeeDetail(username: string) {
         try {
             const result = await this.prismaService.employee_accounts.findUnique({ where: { username: username } })
-            
+
             if (result == null) {
                 throw new HttpException("Cannot find username", 400)
             }
 
             else {
                 // const result = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE username='${username}'`)
-    
+
                 const password = await this.prismaService.accounts.findFirst({
-                    select: { password: true},
-                    where: {username: username}
+                    select: { password: true },
+                    where: { username: username }
                 })
 
                 result['password'] = password.password
@@ -215,13 +215,13 @@ export class AdminService {
                     select: { number: true },
                     where: { employee_username: username }
                 })
-    
+
                 result['numbers'] = []
-    
+
                 for (const i in employee_numbers) {
                     result['numbers'].push(employee_numbers[i]['number'])
                 }
-    
+
                 return {
                     statusCode: 200,
                     message: result
@@ -229,7 +229,7 @@ export class AdminService {
             }
         } catch (err) {
             throw new HttpException(
-                (err.meta == undefined) ? err.response : err.meta.message,   
+                (err.meta == undefined) ? err.response : err.meta.message,
                 HttpStatus.BAD_REQUEST
             )
         }
@@ -244,7 +244,7 @@ export class AdminService {
 
             // Convert current date to start and end day of the month
             const firstDate = new Date(date.getFullYear(), currentMonth, 2)
-            const lastDate = new Date(date.getFullYear(), currentMonth+1, 1)
+            const lastDate = new Date(date.getFullYear(), currentMonth + 1, 1)
 
             // Get stores
             var stores = await this.prismaService.stores.findMany()
@@ -256,7 +256,7 @@ export class AdminService {
                     SET @result = dbo.GetTotalRevenue(${stores[i].id}, '${firstDate.toISOString()}', '${lastDate.toISOString()}');
                     SELECT @result AS TotalRevenue;
                 `)
-    
+
                 // Update the month_revenue
                 await this.prismaService.$executeRawUnsafe(`
                     UPDATE stores SET month_revenue = ${totalRevenue[0].TotalRevenue} WHERE id = ${stores[i].id}
@@ -270,9 +270,9 @@ export class AdminService {
                 statusCode: 200,
                 message: stores
             }
-        } catch(err) {
+        } catch (err) {
             throw new HttpException(
-                (err.meta == undefined) ? err.response : err.meta.message,   
+                (err.meta == undefined) ? err.response : err.meta.message,
                 HttpStatus.BAD_REQUEST
             )
         }
@@ -283,14 +283,14 @@ export class AdminService {
             const bestSellerResponse = await this.prismaService.$queryRawUnsafe(`
                 SELECT * FROM GetBestSellers('${request.from_date}', '${request.to_date}');
             `)
-            
+
             return {
                 statusCode: 200,
                 message: bestSellerResponse
             }
-        } catch(err) {
+        } catch (err) {
             throw new HttpException(
-                (err.meta == undefined) ? err.response : err.meta.message,   
+                (err.meta == undefined) ? err.response : err.meta.message,
                 HttpStatus.BAD_REQUEST
             )
         }
