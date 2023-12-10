@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
+import { GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
+import { sourceMapsEnabled } from "process";
+import { first, last } from "rxjs";
 
 @Injectable({})
 export class AdminService {
@@ -121,7 +123,6 @@ export class AdminService {
     async topProductiveEmployee(request: TopNProductiveEmployeesRequest) {
         try {
             const result = await this.prismaService.$queryRawUnsafe(`EXEC GetTopSellingEmployees '${request.from_date}', '${request.to_date}', ${request.top};`)
-            console.log(result)
             return {
                 statusCode: 200,
                 message: result
@@ -151,7 +152,6 @@ export class AdminService {
 
                 const numbers = []
 
-                console.log(test)
                 for (const numId in test) {
                     const newNum = (test[numId]['number'])
                     numbers.push(newNum)
@@ -182,6 +182,13 @@ export class AdminService {
             else {
                 // const result = await this.prismaService.$queryRawUnsafe(`SELECT * FROM employee_accounts WHERE username='${username}'`)
     
+                const password = await this.prismaService.accounts.findFirst({
+                    select: { password: true},
+                    where: {username: username}
+                })
+
+                result['password'] = password.password
+
                 const employee_numbers = await this.prismaService.employee_numbers.findMany({
                     select: { number: true },
                     where: { employee_username: username }
@@ -199,6 +206,67 @@ export class AdminService {
                 }
             }
         } catch (err) {
+            throw new HttpException(
+                (err.meta == undefined) ? err.response : err.meta.message,   
+                HttpStatus.BAD_REQUEST
+            )
+        }
+    }
+
+    async getStores() {
+        try {
+            // Get current date
+            const date = new Date()
+
+            const currentMonth = date.getMonth()
+
+            // Convert current date to start and end day of the month
+            const firstDate = new Date(date.getFullYear(), currentMonth, 2)
+            const lastDate = new Date(date.getFullYear(), currentMonth+1, 1)
+
+            // Get stores
+            var stores = await this.prismaService.stores.findMany()
+
+            // Execute the calculate function to calculate total revenue
+            for (const i in stores) {
+                const totalRevenue = await this.prismaService.$queryRawUnsafe(`
+                    DECLARE @result MONEY;
+                    SET @result = dbo.GetTotalRevenue(${stores[i].id}, '${firstDate.toISOString()}', '${lastDate.toISOString()}');
+                    SELECT @result AS TotalRevenue;
+                `)
+    
+                // Update the month_revenue
+                await this.prismaService.$executeRawUnsafe(`
+                    UPDATE stores SET month_revenue = ${totalRevenue[0].TotalRevenue} WHERE id = ${stores[i].id}
+                `)
+            }
+
+            // Assign total revenue to the store
+            stores = await this.prismaService.stores.findMany()
+
+            return {
+                statusCode: 200,
+                message: stores
+            }
+        } catch(err) {
+            throw new HttpException(
+                (err.meta == undefined) ? err.response : err.meta.message,   
+                HttpStatus.BAD_REQUEST
+            )
+        }
+    }
+
+    async getBestSeller(request: GetBestSellerRequest) {
+        try {
+            const bestSellerResponse = await this.prismaService.$queryRawUnsafe(`
+                SELECT * FROM GetBestSellers('${request.from_date}', '${request.to_date}');
+            `)
+            
+            return {
+                statusCode: 200,
+                message: bestSellerResponse
+            }
+        } catch(err) {
             throw new HttpException(
                 (err.meta == undefined) ? err.response : err.meta.message,   
                 HttpStatus.BAD_REQUEST

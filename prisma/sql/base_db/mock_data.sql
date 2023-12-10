@@ -104,8 +104,8 @@ INSERT INTO customer_accounts (username, total_points, account_status, latest_or
 -- 034_insert_into_stores.sql
 ALTER TABLE stores 
 NOCHECK CONSTRAINT fk_manager_employee
-INSERT INTO stores(manager_username, store_name, address, store_number, opened_time, closed_time, opened_date, month_revenue, no_employees) values ('employee1', 'Store 1', '...', '0910101020', '8:00', '22:00', '1-28-2021', 0, 0);
-INSERT INTO stores(manager_username, store_name, address, store_number, opened_time, closed_time, opened_date, month_revenue, no_employees) values ('employee2', 'Store 2', '...', '0910101021', '8:00', '22:00', '7-28-2021', 0, 0);
+INSERT INTO stores(manager_username, store_name, address, store_number, opened_time, closed_time, opened_date, month_revenue, no_employees) values ('employee1', 'Store 1', '...', '0910101020', '8:00', '22:00', '1-28-2021', 0, 3);
+INSERT INTO stores(manager_username, store_name, address, store_number, opened_time, closed_time, opened_date, month_revenue, no_employees) values ('employee2', 'Store 2', '...', '0910101021', '8:00', '22:00', '7-28-2021', 0, 3);
 
 -- 035_insert_into_employee_accounts.sql
 INSERT INTO employee_accounts (username, salary, address, dob, account_type, first_name, last_name, sex, started_date, ssn, employee_type, store_id) values ('employee1', 10000000, '...', convert(datetime, '20/10/1986', 103), 'MANAGER', 'Vitoria', 'Rainsden', 'MALE', '1-30-2021', '111111111', 'FULLTIME', 1);
