@@ -1,8 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
-import { sourceMapsEnabled } from "process";
-import { first, last } from "rxjs";
+import { GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNSellingShifts, UpdateEmployeeRequest } from "./dto";
 
 @Injectable({})
 export class AdminService {
@@ -120,9 +118,25 @@ export class AdminService {
         }
     }
 
-    async topProductiveEmployee(request: TopNProductiveEmployeesRequest) {
+    async topSellingShifts(request: TopNSellingShifts) {
         try {
-            const result = await this.prismaService.$queryRawUnsafe(`EXEC GetTopSellingEmployees '${request.from_date}', '${request.to_date}', ${request.top};`)
+            const result = await this.prismaService.$queryRawUnsafe(`EXEC GetTopSellingShifts '${request.from_date}', '${request.to_date}', ${request.top};`)
+            return {
+                statusCode: 200,
+                message: result
+            }
+        }
+        catch(err) {
+            throw new HttpException(
+                err.meta.message,
+                HttpStatus.BAD_REQUEST
+            )
+        }
+    }
+
+    async getEmployeesInShift(shiftId: number) {
+        try {
+            const result = await this.prismaService.$queryRawUnsafe(`EXEC GetEmployeesByShiftId ${shiftId};`)
             return {
                 statusCode: 200,
                 message: result

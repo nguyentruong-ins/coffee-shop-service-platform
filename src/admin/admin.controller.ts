@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req } from "@nestjs/common";
 import { AdminService } from "./admin.service";
-import { DeleteEmployeeRequest, GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNProductiveEmployeesRequest, UpdateEmployeeRequest } from "./dto";
+import { DeleteEmployeeRequest, GetBestSellerRequest, InsertEmployeeRequest, TopNCustomersRequest, TopNSellingShifts, UpdateEmployeeRequest } from "./dto";
 
 @Controller('/api/admin')
 export class AdminController {
@@ -30,10 +30,16 @@ export class AdminController {
         return this.adminService.topVipCustormers(request)
     }
 
-    @Post('/top-n-productive-employees')
+    @Post('/top-n-selling-shifts')
     @HttpCode(200)
-    getTopNProductiveEmployees(@Body() request: TopNProductiveEmployeesRequest) {
-        return this.adminService.topProductiveEmployee(request)
+    getTopNSellingShifts(@Body() request: TopNSellingShifts) {
+        return this.adminService.topSellingShifts(request)
+    }
+
+    @Post('/employees-in-shift')
+    @HttpCode(200)  
+    getEmployeeInShift(@Body("shift_id") shiftId: number) {
+        return this.adminService.getEmployeesInShift(shiftId)
     }
 
     @Get('/employees')
