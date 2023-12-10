@@ -52,10 +52,10 @@ CREATE TABLE menus(
 -- 007_add_orders_table.sql
 CREATE TABLE orders(
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	total_amount MONEY NOT NULL,
-	discount_amount_by_voucher MONEY,
-	discount_amount_by_membership MONEY,
-	ordered_at DATETIME2
+	total_amount MONEY NOT NULL DEFAULT 0,
+	discount_amount_by_voucher MONEY DEFAULT 0,
+	discount_amount_by_membership MONEY DEFAULT 0,
+	ordered_at DATETIME2 DEFAULT GETDATE()
 );
 
 -- 008_add_voucher_table.sql
