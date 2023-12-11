@@ -467,6 +467,11 @@ INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
 VALUES
 	(90000, 0, 9000, '11-16-2023 09:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(100000, 0, 10000, '11-17-2023 10:00');
+
 
 -- user_2
 INSERT INTO orders
@@ -477,6 +482,14 @@ INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
 VALUES
 	(200000, 20000, 50000, '11-18-2023 11:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(100000, 0, 10000, '11-13-2023 12:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-12-2023 13:00');
 
 -- user_3
 INSERT INTO orders
@@ -487,56 +500,135 @@ INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
 VALUES
 	(200000, 0, 20000, '11-10-2023 13:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(100000, 0, 10000, '11-11-2023 14:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-12-2023 15:00');
+
 
 -- user_4
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
 VALUES
-	(300000, 0, 30000, '11-08-2023 14:00');
+	(500000, 0, 50000, '11-08-2023 14:00');
 INSERT INTO orders
 	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
 VALUES
 	(200000, 0, 20000, '11-10-2023 17:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(100000, 0, 10000, '11-10-2023 18:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-10-2023 19:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-11-2023 20:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-12-2023 21:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-17-2023 22:00');
+INSERT INTO orders
+	(total_amount, discount_amount_by_voucher, discount_amount_by_membership, ordered_at)
+VALUES
+	(50000, 0, 5000, '11-18-2023 21:00');
+
 
 -- 038_insert_online_orders.sql
 INSERT INTO online_orders
 	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
 VALUES
-	(1, 'DONE', 0, '...', '11-10-2023 10:00', 'customer1', 'employee5', 'employee3', 0);
+	(1, 'DONE', 0, '...', '11-10-2023 10:00', 'customer1', 'employee2', 'employee7', 0);
 INSERT INTO online_orders
 	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
 VALUES
-	(4, 'DONE', 0, '...', '11-17-2023 14:00', 'customer2', 'employee5', 'employee3', 0);
+	(4, 'DONE', 0, '...', '11-17-2023 14:00', 'customer2', 'employee2', 'employee7', 0);
 INSERT INTO online_orders
 	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
 VALUES
-	(5, 'DONE', 0, '...', '11-18-2023 13:00', 'customer2', 'employee5', 'employee3', 0);
+	(5, 'DONE', 0, '...', '11-18-2023 13:00', 'customer2', 'employee1', 'employee7', 0);
 INSERT INTO online_orders
 	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
 VALUES
-	(7, 'DONE', 0, '...', '11-10-2023 10:00', 'customer3', 'employee4', 'employee6', 0);
+	(7, 'DONE', 0, '...', '11-10-2023 10:00', 'customer3', 'employee8', 'employee3', 0);
+INSERT INTO online_orders
+	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
+VALUES
+	(10, 'DONE', 0, '...', '11-10-2023 10:00', 'customer4', 'employee8', 'employee3', 0);
+INSERT INTO online_orders
+	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
+VALUES
+	(11, 'DONE', 0, '...', '11-10-2023 10:00', 'customer2', 'employee3', 'employee4', 0);
+INSERT INTO online_orders
+	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
+VALUES
+	(12, 'DONE', 0, '...', '11-10-2023 10:00', 'customer1', 'employee4', 'employee3', 0);
+INSERT INTO online_orders
+	(order_id, status, shipping_fee, shipping_address, predicted_arrived_time, customer_account_username, export_employee_username, shipping_employee_username, discount_amount_by_point)
+VALUES
+	(13, 'DONE', 0, '...', '11-10-2023 10:00', 'customer3', 'employee8', 'employee3', 0);
+
 
 -- 039_insert_directly_orders.sql
 INSERT INTO directly_orders
 	(order_id, change, customer_payment, customer_id, export_emp_username)
 VALUES
-	(2, 40000, 200000, 1, 'employee5');
+	(2, 50000, 100000, 1, 'employee7');
 INSERT INTO directly_orders
 	(order_id, change, customer_payment, customer_id, export_emp_username)
 VALUES
-	(3, 0, 50000, 1, 'employee5');
+	(3, 10000, 100000, 1, 'employee1');
 INSERT INTO directly_orders
 	(order_id, change, customer_payment, customer_id, export_emp_username)
 VALUES
-	(6, 100000, 400000, 3, 'employee4');
+	(6, 300000, 500000, 3, 'employee4');
 INSERT INTO directly_orders
 	(order_id, change, customer_payment, customer_id, export_emp_username)
 VALUES
-	(8, 0, 300000, 4, 'employee4');
+	(8, 0, 50000, 4, 'employee3');
 INSERT INTO directly_orders
 	(order_id, change, customer_payment, customer_id, export_emp_username)
 VALUES
-	(9, 0, 200000, 4, 'employee4');
+	(9, 200000, 500000, 6, 'employee4');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(14, 0, 200000, 5, 'employee9');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(15, 100000, 200000, 2, 'employee6');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(16, 0, 50000, 4, 'employee5');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(17, 0, 50000, 7, 'employee5');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(18, 0, 50000, 8, 'employee6');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(19, 0, 50000, 9, 'employee9');
+INSERT INTO directly_orders
+	(order_id, change, customer_payment, customer_id, export_emp_username)
+VALUES
+	(20, 0, 50000, 4, 'employee6');
 
 -- 040_insert_order_items.sql
 INSERT INTO order_items
@@ -558,55 +650,43 @@ VALUES
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(4, 17, 45000, 3);
+	(4, 23, 50000, 1);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(4, 19, 45000, 3);
+	(4, 24, 50000, 1);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(4, 11, 45000, 3);
+	(5, 17, 45000, 3);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(4, 9, 45000, 1);
+	(5, 19, 45000, 3);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(4, 2, 50000, 1);
+	(5, 11, 45000, 3);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(5, 2, 50000, 4);
+	(5, 9, 45000, 1);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(6, 2, 50000, 3);
+	(5, 2, 50000, 1);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(6, 23, 50000, 3);
+	(6, 24, 50000, 4);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(7, 23, 50000, 2);
+	(7, 23, 50000, 1);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(7, 2, 50000, 2);
-INSERT INTO order_items
-	(order_id, item_id, actual_price, quantity)
-VALUES
-	(8, 2, 50000, 3);
-INSERT INTO order_items
-	(order_id, item_id, actual_price, quantity)
-VALUES
-	(8, 23, 50000, 1);
-INSERT INTO order_items
-	(order_id, item_id, actual_price, quantity)
-VALUES
-	(8, 24, 50000, 1);
+	(7, 24, 50000, 1);
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
@@ -618,8 +698,85 @@ VALUES
 INSERT INTO order_items
 	(order_id, item_id, actual_price, quantity)
 VALUES
-	(9, 2, 50000, 2);
-
+	(9, 24, 50000, 2);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(9, 25, 50000, 2);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(10, 23, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(10, 24, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(10, 25, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(10, 26, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(11, 23, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(11, 24, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(12, 25, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(13, 26, 50000, 1),
+	(13, 3, 45000, 1),
+	(13, 4, 45000, 1),
+	(13, 5, 45000, 1),
+	(13, 6, 45000, 1),
+	(13, 7, 45000, 1),
+	(13, 8, 45000, 1),
+	(13, 9, 45000, 1),
+	(13, 10, 45000, 1),
+	(13, 11, 45000, 1),
+	(13, 12, 45000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(14, 23, 50000, 1),
+	(14, 24, 50000, 1),
+	(14, 25, 50000, 1),
+	(14, 26, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(15, 23, 50000, 1),
+	(15, 26, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(16, 23, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(17, 24, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(18, 25, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(19, 26, 50000, 1);
+INSERT INTO order_items
+	(order_id, item_id, actual_price, quantity)
+VALUES
+	(20, 26, 50000, 1);
 
 -- Mockup data for procedure 2 that return top employees in sales
 -- Mock-up data for Months table
@@ -652,6 +809,18 @@ VALUES
 	(11, 2023, '05:00:00', '11:00:00', 10),
 	(11, 2023, '11:00:00', '17:00:00', 10),
 	(11, 2023, '17:00:00', '23:00:00', 10),
+	(11, 2023, '05:00:00', '11:00:00', 11),
+	(11, 2023, '11:00:00', '17:00:00', 11),
+	(11, 2023, '17:00:00', '23:00:00', 11),
+	(11, 2023, '05:00:00', '11:00:00', 12),
+	(11, 2023, '11:00:00', '17:00:00', 12),
+	(11, 2023, '17:00:00', '23:00:00', 12),
+	(11, 2023, '05:00:00', '11:00:00', 13),
+	(11, 2023, '11:00:00', '17:00:00', 13),
+	(11, 2023, '17:00:00', '23:00:00', 13),
+	(11, 2023, '05:00:00', '11:00:00', 14),
+	(11, 2023, '11:00:00', '17:00:00', 14),
+	(11, 2023, '17:00:00', '23:00:00', 14),
 	(11, 2023, '05:00:00', '11:00:00', 15),
 	(11, 2023, '11:00:00', '17:00:00', 15),
 	(11, 2023, '17:00:00', '23:00:00', 15),
@@ -671,57 +840,120 @@ VALUES
 	-- 08/11
 	('employee1', 1, 11, 2023),
 	('employee2', 1, 11, 2023),
+	('employee7', 1, 11, 2023),
 	('employee3', 2, 11, 2023),
 	('employee4', 2, 11, 2023),
+	('employee8', 2, 11, 2023),
 	('employee5', 3, 11, 2023),
 	('employee6', 3, 11, 2023),
+	('employee9', 3, 11, 2023),
 
 	-- 09/11
 	('employee1', 4, 11, 2023),
 	('employee2', 4, 11, 2023),
+	('employee7', 4, 11, 2023),
 	('employee3', 5, 11, 2023),
 	('employee4', 5, 11, 2023),
+	('employee8', 5, 11, 2023),
 	('employee5', 6, 11, 2023),
 	('employee6', 6, 11, 2023),
+	('employee9', 6, 11, 2023),
 
 	-- 10/11
 	('employee1', 7, 11, 2023),
 	('employee2', 7, 11, 2023),
+	('employee7', 7, 11, 2023),
 	('employee3', 8, 11, 2023),
 	('employee4', 8, 11, 2023),
+	('employee8', 8, 11, 2023),
 	('employee5', 9, 11, 2023),
 	('employee6', 9, 11, 2023),
+	('employee9', 9, 11, 2023),
 
-	-- 15/11
+	-- 11/11
 	('employee1', 10, 11, 2023),
 	('employee2', 10, 11, 2023),
+	('employee7', 10, 11, 2023),
 	('employee3', 11, 11, 2023),
 	('employee4', 11, 11, 2023),
+	('employee8', 11, 11, 2023),
 	('employee5', 12, 11, 2023),
 	('employee6', 12, 11, 2023),
+	('employee9', 12, 11, 2023),
 
-	-- 16/11
+	-- 12/11
 	('employee1', 13, 11, 2023),
 	('employee2', 13, 11, 2023),
+	('employee7', 13, 11, 2023),
 	('employee3', 14, 11, 2023),
 	('employee4', 14, 11, 2023),
+	('employee8', 14, 11, 2023),
 	('employee5', 15, 11, 2023),
 	('employee6', 15, 11, 2023),
+	('employee9', 15, 11, 2023),
 
-	-- 17/11
+	-- 13/11
 	('employee1', 16, 11, 2023),
 	('employee2', 16, 11, 2023),
+	('employee7', 16, 11, 2023),
 	('employee3', 17, 11, 2023),
 	('employee4', 17, 11, 2023),
+	('employee8', 17, 11, 2023),
 	('employee5', 18, 11, 2023),
 	('employee6', 18, 11, 2023),
+	('employee9', 18, 11, 2023),
 
-	-- 18/11
+	-- 14/11
 	('employee1', 19, 11, 2023),
 	('employee2', 19, 11, 2023),
+	('employee7', 19, 11, 2023),
 	('employee3', 20, 11, 2023),
 	('employee4', 20, 11, 2023),
+	('employee8', 20, 11, 2023),
 	('employee5', 21, 11, 2023),
-	('employee6', 21, 11, 2023)
-    ;
+	('employee6', 21, 11, 2023),
+	('employee9', 21, 11, 2023),
+
+	-- 15/11
+	('employee1', 22, 11, 2023),
+	('employee2', 22, 11, 2023),
+	('employee7', 22, 11, 2023),
+	('employee3', 23, 11, 2023),
+	('employee4', 23, 11, 2023),
+	('employee8', 23, 11, 2023),
+	('employee5', 24, 11, 2023),
+	('employee6', 24, 11, 2023),
+	('employee9', 24, 11, 2023),
+
+	-- 16/11
+	('employee1', 25, 11, 2023),
+	('employee2', 25, 11, 2023),
+	('employee7', 25, 11, 2023),
+	('employee3', 26, 11, 2023),
+	('employee4', 26, 11, 2023),
+	('employee8', 26, 11, 2023),
+	('employee5', 27, 11, 2023),
+	('employee6', 27, 11, 2023),
+	('employee9', 27, 11, 2023),
+	-- 17/11
+	('employee1', 28, 11, 2023),
+	('employee2', 28, 11, 2023),
+	('employee7', 28, 11, 2023),
+	('employee3', 29, 11, 2023),
+	('employee4', 29, 11, 2023),
+	('employee8', 29, 11, 2023),
+	('employee5', 30, 11, 2023),
+	('employee6', 30, 11, 2023),
+	('employee9', 30, 11, 2023),
+
+	-- 18/11
+	('employee1', 31, 11, 2023),
+	('employee2', 31, 11, 2023),
+	('employee7', 31, 11, 2023),
+	('employee3', 32, 11, 2023),
+	('employee4', 32, 11, 2023),
+	('employee8', 32, 11, 2023),
+	('employee5', 33, 11, 2023),
+	('employee6', 33, 11, 2023),
+	('employee9', 33, 11, 2023);
 
