@@ -44,7 +44,7 @@ BEGIN
         BEGIN
              -- Raise error
              --PRINT('total_amount not satisfied or discounted amount exceeded over 50% of total_amount');
-			 RAISERROR ('total_amount not satisfied or discounted amount exceeded over 50%% of total_amount' ,10,1);
+			 RAISERROR ('total_amount not satisfied or discounted amount exceeded over 50%% of total_amount' ,16,1);
 			 ROLLBACK TRANSACTION;
 			 --THROW;
         END
