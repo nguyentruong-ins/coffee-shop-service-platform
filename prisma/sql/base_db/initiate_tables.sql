@@ -191,6 +191,7 @@ CREATE TABLE employee_accounts(
 	store_id INT,
 	status BIT DEFAULT 1,
 	CONSTRAINT uq_username_employee_account UNIQUE (username),
+	CONSTRAINT fk_employee_account FOREIGN KEY (username) REFERENCES accounts(username),
 	CONSTRAINT uq_employee_ssn UNIQUE (ssn)
 );
 
