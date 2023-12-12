@@ -146,7 +146,7 @@ CREATE TABLE order_vouchers (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	order_id INT,
 	voucher_id INT,
-	CONSTRAINT uq_order_voucher UNIQUE (order_id),
+	-- CONSTRAINT uq_order_voucher UNIQUE (order_id),
 	CONSTRAINT fk_voucher_order FOREIGN KEY (order_id) REFERENCES orders(id),
 	CONSTRAINT fk_voucher_id FOREIGN KEY (voucher_id) REFERENCES vouchers(id)
 );
