@@ -14,7 +14,7 @@ BEGIN
         RETURN NULL;
     END
 
-    SELECT @totalRevenue = ISNULL(SUM(o.total_amount), 0)
+    SELECT @totalRevenue = ISNULL(SUM(o.total_amount), 0) - ISNULL(SUM(o.discount_amount_by_membership),0) - ISNULL(SUM(o.discount_amount_by_voucher),0)
     FROM orders o
     WHERE o.ordered_at BETWEEN @startDate AND @endDate
         AND (
